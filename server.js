@@ -6,16 +6,36 @@ let db
 app.set("view engine", "ejs")
 app.set("views","./views")
 app.use(express.static("public"))
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
+function password(req,res,next){
+    res.set("WWW-Authenticate", "Basic realm='Our MERN App'")
+    if (req.headers.authorization == "Basic YWRtaW46YWRtaW4="){
+        next()
+    }else{
+        console.log(req.headers.authorization)
+        res.status(401).send("Try again later")
+    }
+}
+
 
 app.get("/", async (req,res) => {
     const allusers = await db.collection('User').find().toArray()
     res.render("home", { allusers})
 })
 
+app.use(password)
+
 app.get("/api/users", async (req, res) => {
     const allusers = await db.collection('User').find().toArray()
     res.json(allusers)
 
+})
+
+app.post("/create-user", async (req, res) => {
+    console.log(req.body)
+    res.send("create")
 })
 
 

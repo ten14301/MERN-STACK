@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import {createRoot} from "react-dom"
 import Axios from "axios"
+import CreateNewForm from "./component/CreateNewForm"
+import UserCard from "./component/UserCard"
 
 function App(){
     const [users, setUsers] = useState([])
@@ -13,19 +15,18 @@ function App(){
         go()
     }, [])
     return(
-        <div>
-            <h1>Hello</h1>
-            <p>Hey, This is from react</p>
+        <div className="container">
+            <p><a href="/">&laquo; Back to public homepage</a></p>
+            <CreateNewForm setUsers={setUsers}/>
+            <div className="user-grid">
             {users.map(function(user){
-                return <AnimalCard Username={user.Username} Role={user.Role}/>
+                return <UserCard key={user._id} Username={user.Username} Role={user.Role} photo={user.photo} id={user._id} setUsers={setUsers}/>
             })}
+            </div>
         </div>
     )
 }
 
-function AnimalCard(props){
-    return <p>This is {props.Username} and I am {props.Role}</p>
-}
 
 const root = createRoot(document.querySelector('#app'))
 root.render(<App />)
