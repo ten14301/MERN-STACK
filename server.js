@@ -15,7 +15,6 @@ function password(req, res, next) {
       const encodedCredentials = authHeader.split(' ')[1];
       const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString('utf-8');
       const [username, password] = decodedCredentials.split(':');
-      // ตรวจสอบข้อมูลผู้ใช้ใน MongoDB
       db.collection('User')
         .findOne({ Username: username, Pass: password })
         .then(user => {
