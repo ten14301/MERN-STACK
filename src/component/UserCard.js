@@ -53,7 +53,7 @@ function UserCard(props) {
       <div className="card-body">
         {!isEditing && (
           <>
-            <h4>{props.name}</h4>
+            <h4>{props.Username}</h4>
             <p className="text-muted small">{props.Role}</p>
             {!props.readOnly && (
               <>
