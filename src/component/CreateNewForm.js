@@ -30,7 +30,7 @@ function CreateNewForm(props) {
         <input onChange={e => setUsername(e.target.value)} value={name} type="text" className="form-control" placeholder="User name" />
       </div>
       <div className="mb-2">
-        <input onChange={e => setRole(e.target.value)} value={species} type="text" className="form-control" placeholder="Role" />
+        <input onChange={e => setRole(e.target.value)} value={Role} type="text" className="form-control" placeholder="Role" />
       </div>
 
       <button className="btn btn-success">Create New User</button>
