@@ -66,6 +66,26 @@ app.delete("/user/:id", async (req, res) => {
   res.send("Deleted")
 })
 
+app.post("/update-user", upload.single("photo"), clean, async (req, res) => {
+  if (req.file) {
+    const photofilename = `${Date.now()}.jpg`;
+    await sharp(req.file.buffer)
+      .resize(170, 170)
+      .jpeg({ quality: 60 })
+      .toFile(path.join("public", "upload-img", photofilename))
+    req.cleanData.photo = photofilename
+
+    const info = await db.collection('User').findOneAndUpdate({_id: new ObjectId(req.body._id)}, {$set: req.cleanData})
+    if (info.value.photo) {
+      fse.remove(path.join("public", "upload-img", info.value.photo))
+    }
+    res.send(photofilename)
+  } else {
+    db.collection('User').findOneAndUpdate({_id: new ObjectId(req.body._id)}, {$set: req.cleanData})
+    res.send(false)
+  }
+})
+
 app.get("/api/users", async (req, res) => {
   const allusers = await db.collection('User').find().toArray();
   res.json(allusers)

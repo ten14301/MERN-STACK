@@ -1,19 +1,20 @@
-import Axios from "axios"
 import React, { useState } from "react"
+import Axios from "axios"
 
 function UserCard(props) {
   const [isEditing, setIsEditing] = useState(false)
   const [draftUsername, setDraftUsername] = useState("")
   const [file, setFile] = useState()
   const [draftRole, setDraftRole] = useState("")
+  const [draftPass, setDraftPass] = useState(props.Pass || "") // แก้ไขตรงนี้
 
   async function submitHandler(e) {
     e.preventDefault()
     setIsEditing(false)
     props.setUsers(prev =>
-      prev.map(function (u) {
-        if (user._id == props.id) {
-          return { ...user, Username: draftUsername, Role: draftRole }
+      prev.map(function (user) {
+        if (user._id === props.id) {
+          return { ...user, Username: draftUsername, Role: draftRole, Pass: draftPass }
         }
         return user
       })
@@ -24,12 +25,13 @@ function UserCard(props) {
     }
     data.append("_id", props.id)
     data.append("Username", draftUsername)
-    data.append("", draftRole)
+    data.append("Role", draftRole)
+    data.append("Pass", draftPass)
     const newPhoto = await Axios.post("/update-user", data, { headers: { "Content-Type": "multipart/form-data" } })
     if (newPhoto.data) {
       props.setUsers(prev => {
         return prev.map(function (user) {
-          if (user._id == props.id) {
+          if (user._id === props.id) {
             return { ...user, photo: newPhoto.data }
           }
           return user
@@ -62,6 +64,7 @@ function UserCard(props) {
                     setIsEditing(true)
                     setDraftUsername(props.Username)
                     setDraftRole(props.Role)
+                    setDraftPass(props.Pass || "") // แก้ไขตรงนี้
                     setFile("")
                   }}
                   className="btn btn-sm btn-primary"
@@ -73,7 +76,7 @@ function UserCard(props) {
                     const test = Axios.delete(`/user/${props.id}`)
                     props.setUsers(prev => {
                       return prev.filter(user => {
-                        return user._id != props.id
+                        return user._id !== props.id
                       })
                     })
                   }}
@@ -88,10 +91,29 @@ function UserCard(props) {
         {isEditing && (
           <form onSubmit={submitHandler}>
             <div className="mb-1">
-              <input autoFocus onChange={e => setDraftUsername(e.target.value)} type="text" className="form-control form-control-sm" value={draftUsername} />
+              <input
+                autoFocus
+                onChange={e => setDraftUsername(e.target.value)}
+                type="text"
+                className="form-control form-control-sm"
+                value={draftUsername}
+              />
             </div>
             <div className="mb-2">
-              <input onChange={e => setDraftRole(e.target.value)} type="text" className="form-control form-control-sm" value={draftRole} />
+              <input
+                onChange={e => setDraftRole(e.target.value)}
+                type="text"
+                className="form-control form-control-sm"
+                value={draftRole}
+              />
+            </div>
+            <div className="mb-2">
+              <input
+                onChange={e => setDraftPass(e.target.value)}
+                type="text"
+                className="form-control form-control-sm"
+                value={draftPass}
+              />
             </div>
             <button className="btn btn-sm btn-success">Save</button>{" "}
             <button onClick={() => setIsEditing(false)} className="btn btn-sm btn-outline-secondary">
