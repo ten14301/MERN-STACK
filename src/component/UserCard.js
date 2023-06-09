@@ -48,7 +48,7 @@ function UserCard(props) {
             </div>
           </div>
         )}
-        <img src={props.photo ? `/uploaded-photos/${props.photo}` : "/no-image.jpg"} className="card-img-top" alt={`${props.Role} named ${props.Username}`} />
+        <img src={props.photo ? `/upload-img/${props.photo}` : "/no-image.jpg"} className="card-img-top" alt={`${props.Role} named ${props.Username}`} />
       </div>
       <div className="card-body">
         {!isEditing && (

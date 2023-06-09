@@ -56,18 +56,33 @@ app.get("/", async (req, res) => {
 
 app.use(password);
 
+app.delete("/user/:id", async (req, res) => {
+  if (typeof req.params.id != "string") req.params.id = ""
+  const doc = await db.collection('User').findOne({_id: new ObjectId(req.params.id)})
+  if (doc.photo){
+    fse.remove(path.join("public","upload-img", doc.photo))
+  }
+  db.collection('User').deleteOne({_id: new ObjectId(req.params.id)})
+  res.send("Deleted")
+})
+
 app.get("/api/users", async (req, res) => {
   const allusers = await db.collection('User').find().toArray();
   res.json(allusers)
 });
 
 app.post("/create-user", upload.single("photo"), clean, async (req, res) => {
+
+    const existingUser = await db.collection("User").findOne({ Username: req.cleanData.Username });
+    if (existingUser) {
+      return res.status(400).send("Username already exists")
+    }else{
     if (req.file) {
       const photofilename = `${Date.now()}.jpg`;
       await sharp(req.file.buffer)
-        .resize(844, 456)
+        .resize(170, 170)
         .jpeg({ quality: 60 })
-        .toFile(path.join("public", "upload-image", photofilename))
+        .toFile(path.join("public", "upload-img", photofilename))
       req.cleanData.photo = photofilename;
     }
   
@@ -75,6 +90,7 @@ app.post("/create-user", upload.single("photo"), clean, async (req, res) => {
     const info = await db.collection("User").insertOne(req.cleanData);
     const newUser = await db.collection("User").findOne({ _id: new ObjectId(info.insertedId) });
     res.send(newUser);
+  }
   });
 function clean(req,res,next) {
     if (typeof req.body.Username != "string") req.body.Username = ""
