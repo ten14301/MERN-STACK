@@ -6,7 +6,7 @@ function UserCard(props) {
   const [draftUsername, setDraftUsername] = useState("")
   const [file, setFile] = useState()
   const [draftRole, setDraftRole] = useState("")
-  const [draftPass, setDraftPass] = useState(props.Pass || "") // แก้ไขตรงนี้
+  const [draftPass, setDraftPass] = useState(props.Pass || "")
 
   async function submitHandler(e) {
     e.preventDefault()

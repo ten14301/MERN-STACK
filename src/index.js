@@ -16,7 +16,6 @@ function App(){
     }, [])
     return(
         <div className="container">
-            <p><a href="/">&laquo; Back to public homepage</a></p>
             <CreateNewForm setUsers={setUsers}/>
             <div className="user-grid">
             {users.map(function(user){

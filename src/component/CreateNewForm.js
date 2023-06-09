@@ -1,5 +1,6 @@
-import Axios from "axios";
 import React, { useState, useRef } from "react";
+import Modal from "react-modal";
+import Axios from "axios";
 
 function CreateNewForm(props) {
   const [Username, setUsername] = useState("");
@@ -7,6 +8,7 @@ function CreateNewForm(props) {
   const [Role, setRole] = useState("");
   const [file, setFile] = useState("");
   const CreatePhotoField = useRef();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   async function submitHandler(e) {
     e.preventDefault();
@@ -27,47 +29,79 @@ function CreateNewForm(props) {
   }
 
   return (
-    <form className="p-3 bg-success bg-opacity-25 mb-5" onSubmit={submitHandler}>
-      <div className="mb-2">
-        <input
-          ref={CreatePhotoField}
-          onChange={(e) => setFile(e.target.files[0])}
-          type="file"
-          className="form-control"
-        />
-      </div>
-      <div className="mb-2">
-        <input
-          onChange={(e) => setUsername(e.target.value)}
-          value={Username}
-          type="text"
-          className="form-control"
-          placeholder="User name"
-        />
-      </div>
-      <div className="mb-2">
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          value={Pass}
-          type="password"
-          className="form-control"
-          placeholder="Password"
-        />
-      </div>
-      <div className="mb-2">
-        <select
-          onChange={(e) => setRole(e.target.value)}
-          value={Role}
-          className="form-control"
-        >
-          <option value="">Select Role</option>
-          <option value="admin">Admin</option>
-          <option value="member">Member</option>
-        </select>
-      </div>
+    <>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        contentLabel="Create New User"
+      >
+        <form className="p-3 bg-white shadow-sm rounded mb-5" onSubmit={submitHandler}>
+          <div className="mb-2">
+            <input
+              ref={CreatePhotoField}
+              onChange={(e) => setFile(e.target.files[0])}
+              type="file"
+              className="form-control"
+            />
+          </div>
+          <div className="mb-2">
+            <input
+              onChange={(e) => setUsername(e.target.value)}
+              value={Username}
+              type="text"
+              className="form-control"
+              placeholder="User name"
+            />
+          </div>
+          <div className="mb-2">
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              value={Pass}
+              type="password"
+              className="form-control"
+              placeholder="Password"
+            />
+          </div>
+          <div className="mb-2">
+            <select
+              onChange={(e) => setRole(e.target.value)}
+              value={Role}
+              className="form-control"
+            >
+              <option value="">Select Role</option>
+              <option value="admin">Admin</option>
+              <option value="member">Member</option>
+            </select>
+          </div>
 
-      <button className="btn btn-success">Create New User</button>
-    </form>
+          <button type="submit" className="btn btn-primary">
+            Create New User
+          </button>
+        </form>
+      </Modal>
+
+      <button
+        className="btn btn-primary create-user-button"
+        onClick={() => setModalIsOpen(true)}
+      >
+        Create New User
+      </button>
+
+      <style jsx>{`
+        .create-user-button {
+          position: fixed;
+          bottom: 50px;
+          right: 50px;
+        }
+
+        @media (max-width: 768px) {
+          .create-user-button {
+            position: static;
+            margin-top: 20px;
+          }
+        }
+      `}</style>
+    </>
   );
 }
 
