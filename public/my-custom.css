@@ -1,0 +1,38 @@
+body {
+  background: #f7f9fb;
+  height: 100vh;
+  color: black;
+  margin: 0;
+}
+
+nav {
+  height: 100%;
+  width: 25%;
+  background-color: white;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 15%;
+  background-color: white;
+  position: fixed;
+  text-align: center;
+  height: 100%;
+}
+
+li {
+
+padding: 10px 10px;
+}
+
+li a {
+  color: #666a6d;
+  text-decoration: none;
+}
+
+li:hover {
+  color: #4377b5;
+  background-color: #f1f6fc;
+}

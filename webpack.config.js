@@ -1,5 +1,5 @@
-const nodeExternals = require("webpack-node-externals")
-const path = require("path")
+const nodeExternals = require("webpack-node-externals");
+const path = require("path");
 
 const typicalReact = {
   rules: [
@@ -12,9 +12,13 @@ const typicalReact = {
           presets: ["@babel/preset-react"]
         }
       }
+    },
+    {
+      test: /\.css$/,
+      use: ["style-loader", "css-loader"]
     }
   ]
-}
+};
 
 const clientConfig = {
   entry: "./src/index.js",
@@ -24,7 +28,7 @@ const clientConfig = {
   },
   mode: "development",
   module: typicalReact
-}
+};
 
 const serverConfig = {
   entry: "./server.js",
@@ -36,6 +40,6 @@ const serverConfig = {
   target: "node",
   mode: "production",
   module: typicalReact
-}
+};
 
-module.exports = [clientConfig, serverConfig]
+module.exports = [clientConfig, serverConfig];
