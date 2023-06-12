@@ -5,6 +5,9 @@ const sanitizeHtml  = require('sanitize-html')
 const fse = require('fs-extra')
 const sharp = require('sharp')
 const path = require('path')
+const React = require('react')
+const ReactDOMServer = require('react-dom/server');
+const UserCard = require('./src/component/UserCard').default
 
 
 const app = express()
@@ -30,7 +33,7 @@ function password(req, res, next) {
       db.collection('User')
         .findOne({ Username: username, Pass: password })
         .then(user => {
-          if (user) {
+          if (user && user.Role == "Admin") {
             next();
           } else {
             console.log(authHeader);
@@ -51,7 +54,14 @@ function password(req, res, next) {
 
 app.get("/", async (req, res) => {
   const allusers = await db.collection('User').find().toArray();
-  res.render("home", { allusers });
+  const generateHTML = ReactDOMServer.renderToString(
+    <div className='container'>
+      <div className='user-grid'>
+        {allusers.map(user => <UserCard  key={user._id} name={user.Username} Role={user.Role} photo={user.photo} id={user._id} readOnly={true}/>)}
+      </div>
+    </div>
+  )
+  res.render("home", { generateHTML });
 });
 
 app.use(password);

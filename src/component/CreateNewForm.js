@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import Modal from "react-modal";
 import Axios from "axios";
 
 function CreateNewForm(props) {
@@ -26,82 +25,47 @@ function CreateNewForm(props) {
       headers: { "Content-Type": "multipart/form-data" },
     });
     props.setUsers((prev) => prev.concat([newPhoto.data]));
+    setModalIsOpen(false);
   }
 
   return (
     <>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Create New User"
-      >
-        <form className="p-3 bg-white shadow-sm rounded mb-5" onSubmit={submitHandler}>
-          <div className="mb-2">
+        <form onSubmit={submitHandler}>
+          <div>
             <input
               ref={CreatePhotoField}
               onChange={(e) => setFile(e.target.files[0])}
               type="file"
-              className="form-control"
             />
           </div>
-          <div className="mb-2">
+          <div>
             <input
               onChange={(e) => setUsername(e.target.value)}
               value={Username}
               type="text"
-              className="form-control"
               placeholder="User name"
             />
           </div>
-          <div className="mb-2">
+          <div>
             <input
               onChange={(e) => setPassword(e.target.value)}
               value={Pass}
               type="password"
-              className="form-control"
               placeholder="Password"
             />
           </div>
-          <div className="mb-2">
-            <select
-              onChange={(e) => setRole(e.target.value)}
-              value={Role}
-              className="form-control"
-            >
+          <div>
+            <select onChange={(e) => setRole(e.target.value)} value={Role}>
               <option value="">Select Role</option>
               <option value="admin">Admin</option>
               <option value="member">Member</option>
             </select>
           </div>
 
-          <button type="submit" className="btn btn-primary">
-            Create New User
-          </button>
+          <button type="submit">Create New User</button>
         </form>
-      </Modal>
 
-      <button
-        className="btn btn-primary create-user-button"
-        onClick={() => setModalIsOpen(true)}
-      >
-        Create New User
-      </button>
-
-      <style jsx>{`
-        .create-user-button {
-          position: fixed;
-          bottom: 50px;
-          right: 50px;
-        }
-
-        @media (max-width: 768px) {
-          .create-user-button {
-            position: static;
-            margin-top: 20px;
-          }
-        }
-      `}</style>
-    </>
+        </>
   );
 }
 
