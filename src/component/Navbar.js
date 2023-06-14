@@ -1,40 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartPie,faUsers,faUser,faBell } from "@fortawesome/free-solid-svg-icons";
-import "./Navbar.css";
+import { faMagnifyingGlass,faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
-
-    const [activeMenu, setActiveMenu] = useState(null);
-
-    const handleMenuClick = (menuIndex) => {
-      setActiveMenu(menuIndex);
-    };
   return (
-    <div id="menu">
-      <div className="logo">
-        <img src="./img/logo.png" alt="" />
-        <h2>DB Manage</h2>
-      </div>
-      <div className="item">
-        <a>
-            <li className={activeMenu === 0 ? "active" : ""}
-            onClick={() => handleMenuClick(0)}>
-            <FontAwesomeIcon icon={faChartPie} className="icon"/><a href="#" >DashBoard Chart</a>
-            </li>
-            <li className={activeMenu === 1 ? "active" : ""}
-            onClick={() => handleMenuClick(1)}>
-            <FontAwesomeIcon icon={faUser} className="icon" /> <a href="#">Manage User</a>
-            </li >
-            <li className={activeMenu === 2 ? "active" : ""}
-            onClick={() => handleMenuClick(2)} >
-            <FontAwesomeIcon icon={faUsers}  className="icon" /> <a href="#">Team</a>
-            </li>
-            <li className={activeMenu === 3 ? "active" : ""}
-            onClick={() => handleMenuClick(3)} >
-            <FontAwesomeIcon icon={faBell}  className="icon" /> <a href="#">Notifications</a>
-            </li>
-        </a>
+    <div className="interface">
+      <div className="navigation">
+        <div className="n1">
+          <div className="profile">
+            <div className="s">
+             <i className="manify"> <FontAwesomeIcon icon={faMagnifyingGlass} /></i>
+              <input type="text" placeholder="...search"/>
+            </div>
+            <div>
+            <img src="/no-image.jpg" />
+            <a><FontAwesomeIcon icon={faRightFromBracket} /></a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

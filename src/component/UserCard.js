@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
+import Popup from "./Popup";
 
 function UserCard(props) {
   const [isEditing, setIsEditing] = useState(false);
@@ -40,84 +41,81 @@ function UserCard(props) {
     }
   }
 
-  return (
-    <div className="card">
-      {isEditing && (
-        <div>
-          <div>
-            <input onChange={(e) => setFile(e.target.files[0])} className="form-control form-control-sm" type="file" />
-          </div>
-        </div>
-      )}
-      <img src={props.photo ? `/upload-img/${props.photo}` : "/no-image.jpg"} className="card-img-top" alt={`${props.Role} named ${props.Username}`} />
-      <div>
-        {!isEditing && (
-          <>
-            <p>{props.Username}</p>
-            <p>{props.Role}</p>
-            {!props.readOnly && (
-              <div>
-                <button
-                  onClick={() => {
-                    setIsEditing(true);
-                    setDraftUsername(props.Username);
-                    setDraftRole(props.Role);
-                    setDraftPass(props.Pass || "");
-                    setFile("");
-                  }}
-            
-                >
-                  Edit
-                </button>{" "}
-                <button
-                  onClick={async () => {
-                    const test = Axios.delete(`/user/${props.id}`);
-                    props.setUsers((prev) => {
-                      return prev.filter((user) => {
-                        return user._id !== props.id;
-                      });
-                    });
-                  }}
-              
-                >
-                  Delete
-                </button>
-              </div>
-            )}
-          </>
-        )}
-        {isEditing && (
+  const showPopup = () => {
+    return (
+      <Popup>
+        <div className="popup-content">
           <form onSubmit={submitHandler}>
-            <div>
-              <input
-                autoFocus
-                onChange={(e) => setDraftUsername(e.target.value)}
-                type="text"
-                value={draftUsername}
-              />
+            <div className="form-group">
+              <label>Username:</label>
+              <input autoFocus className="form-control" onChange={(e) => setDraftUsername(e.target.value)} type="text" value={draftUsername} />
             </div>
-            <div>
-              <input onChange={(e) => setDraftRole(e.target.value)} type="text"  value={draftRole} />
+            <div className="form-group">
+              <label>Role:</label>
+              <input className="form-control" onChange={(e) => setDraftRole(e.target.value)} type="text" value={draftRole} />
             </div>
-            <div>
-              <input
-                onChange={(e) => setDraftPass(e.target.value)}
-                type="text"
-                value={draftPass}
-              />
+            <div className="form-group">
+              <label>Password:</label>
+              <input className="form-control" onChange={(e) => setDraftPass(e.target.value)} type="text" value={draftPass} />
             </div>
-            <div>
-              <button>
-                Save
-              </button>{" "}
-              <button onClick={() => setIsEditing(false)}>
-                Cancel
-              </button>
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary">Save</button>{" "}
+              <button className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
             </div>
           </form>
+        </div>
+      </Popup>
+    );
+  };
+
+  return (
+    <table className="card">
+      <tbody>
+        <tr>
+          <td colSpan="2">
+            <img src={props.photo ? `/upload-img/${props.photo}` : "/no-image.jpg"} className="card-img-top" alt={`${props.Role} named ${props.Username}`} />
+          </td>
+          <td>Username:</td>
+          <td>{props.Username}</td>
+          <td>Role:</td>
+          <td>{props.Role}</td>
+          {!props.readOnly && (
+            <td colSpan="2">
+              <button
+                onClick={() => {
+                  setIsEditing(true);
+                  setDraftUsername(props.Username);
+                  setDraftRole(props.Role);
+                  setDraftPass(props.Pass || "");
+                  setFile("");
+                }}
+              >
+                Edit
+              </button>{" "}
+              <button
+                onClick={async () => {
+                  const test = Axios.delete(`/user/${props.id}`);
+                  props.setUsers((prev) => {
+                    return prev.filter((user) => {
+                      return user._id !== props.id;
+                    });
+                  });
+                }}
+              >
+                Delete
+              </button>
+            </td>
+          )}
+        </tr>
+        {isEditing && (
+          <tr>
+            <td colSpan="8">
+              {showPopup()}
+            </td>
+          </tr>
         )}
-      </div>
-    </div>
+      </tbody>
+    </table>
   );
 }
 
