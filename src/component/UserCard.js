@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import Popup from "./Popup";
 
 function UserCard(props) {
   const [isEditing, setIsEditing] = useState(false);
@@ -43,28 +42,32 @@ function UserCard(props) {
 
   const showPopup = () => {
     return (
-      <Popup>
+      <div className="popup">
         <div className="popup-content">
-          <form onSubmit={submitHandler}>
-            <div className="form-group">
-              <label>Username:</label>
-              <input autoFocus className="form-control" onChange={(e) => setDraftUsername(e.target.value)} type="text" value={draftUsername} />
-            </div>
-            <div className="form-group">
-              <label>Role:</label>
-              <input className="form-control" onChange={(e) => setDraftRole(e.target.value)} type="text" value={draftRole} />
-            </div>
-            <div className="form-group">
-              <label>Password:</label>
-              <input className="form-control" onChange={(e) => setDraftPass(e.target.value)} type="text" value={draftPass} />
-            </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary">Save</button>{" "}
-              <button className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
-            </div>
-          </form>
+          <div className="popup-inner">
+            <form onSubmit={submitHandler}>
+              <div className="form-group-horizontal">
+                <div className="form-group">
+                  <label>Username:</label>
+                  <input autoFocus className="form-control" onChange={(e) => setDraftUsername(e.target.value)} type="text" value={draftUsername} />
+                </div>
+                <div className="form-group">
+                  <label>Role:</label>
+                  <input className="form-control" onChange={(e) => setDraftRole(e.target.value)} type="text" value={draftRole} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Password:</label>
+                <input className="form-control" onChange={(e) => setDraftPass(e.target.value)} type="text" value={draftPass} />
+              </div>
+              <div className="form-group">
+                <button type="submit" className="btn btn-primary">Save</button>{" "}
+                <button className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </Popup>
+      </div>
     );
   };
 
@@ -108,11 +111,7 @@ function UserCard(props) {
           )}
         </tr>
         {isEditing && (
-          <tr>
-            <td colSpan="8">
-              {showPopup()}
-            </td>
-          </tr>
+          showPopup()
         )}
       </tbody>
     </table>
