@@ -41,15 +41,11 @@ body{
   cursor: pointer;
 }
 
-
-
-
-
 #menu {
   background-color: #111827;
   width: 300px;
   height: 100vh;
-  
+  position: fixed;
 }
 .logo{
   display: flex;
@@ -122,6 +118,7 @@ a{
   border-bottom: 3px solid #594ef7;
   position: fixed;
   width: calc(100% - 300px);
+  margin-left: 300px;
   }
 
 .navigation{
@@ -191,6 +188,7 @@ a{
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-left: 300px;
 }
 
 .val-box{
@@ -237,6 +235,7 @@ a{
   overflow: auto;
   background-color: #fff;
   border-radius: 8px;
+  margin-left: 320px;
 }
 
 .board img{
