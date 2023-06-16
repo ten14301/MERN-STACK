@@ -3,6 +3,7 @@ import Axios from "axios";
 
 function CreateNewForm(props) {
   const [Username, setUsername] = useState("");
+  const [Team, setTeam] = useState("");
   const [Pass, setPassword] = useState("");
   const [Role, setRole] = useState("");
   const [file, setFile] = useState("");
@@ -16,7 +17,9 @@ function CreateNewForm(props) {
     data.append("Username", Username);
     data.append("Pass", Pass);
     data.append("Role", Role);
+    data.append("Team", Team);
     setUsername("");
+    setTeam("");
     setPassword("");
     setRole("");
     setFile("");
@@ -52,6 +55,14 @@ function CreateNewForm(props) {
               value={Pass}
               type="password"
               placeholder="Password"
+            />
+          </div>
+          <div>
+            <input
+              onChange={(e) => setTeam(e.target.value)}
+              value={Team}
+              type="text"
+              placeholder="Team"
             />
           </div>
           <div>

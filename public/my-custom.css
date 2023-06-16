@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body{
+  background-color: #e5e7eb;
+}
 .app{
   width: 100%;
   position: relative;
@@ -21,19 +24,25 @@
   align-items: center;
 }
 
-.popup-inner{
+.popup-inner {
   position: relative;
   width: 100%;
   max-width: 640px;
   padding: 32px 32px;
   background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.popup-inner .close-button{
+.popup-inner .close-button {
   position: absolute;
   top: 16px;
   right: 16px;
+  cursor: pointer;
 }
+
+
+
 
 
 #menu {
@@ -158,28 +167,16 @@ a{
   font-size: 14px;
  }
 
-
-.card img {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  border-radius: 50%;
-}
 .content{
   width: calc(100% - 300px);
   margin-top: 100px;
 
 }
-h3{
+.toppic{
   color: #444a53;
-  padding: 30px 30px 0 30px;
+  padding: 0px 0px 0 30px;
   font-size: 24px;
   font-weight: 700;
-}
-
-
-td{
-  padding: 40px 50px 50px;
 }
 
 
@@ -189,10 +186,120 @@ td{
   padding: 20px 50px;
 }
 
+.values{
+  padding: 30px 30px 0 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.val-box{
+  background-color: #fff;
+  width: 235px;
+  padding: 16px 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 10px;
+}
+.val-box i {
+  font-size: 25px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  margin-right: 15px;
+}
+.val-box:nth-child(1) i{
+  background-color: #7b74ec;
+}
+
+.val-box:nth-child(2) i{
+  background-color: #e45d99;
+}
+
+.val-box h3{
+  font-size: 18px;
+  font-weight: 600px;
+}
+
+.val-box span{
+  font-size: 15px;
+  color: #828997;
+}
+
+.board{
+  width: 90%;
+  margin: 30px 0 30px 30px;
+  overflow: auto;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.board img{
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.board h5{
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.board .people{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.board p {
+  font-weight: 400;
+  font-size: 13px;
+  color: #787d8d;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+tr{
+  border-bottom: 1px solid #eef0f3;
+}
+
+thead td{
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 400;
+  background-color: #f9fafb;
+  text-align: start;
+  padding: 10px;
+
+}
+
+tbody tr td{
+  padding: 10px 15px;
+}
 
 
+.Action button{
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
 
-
+.Action button:hover {
+  background-color: #45a049;
+}
 
 
   

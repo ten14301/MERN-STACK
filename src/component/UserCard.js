@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Axios from "axios";
 
 function UserCard(props) {
+  const [headerDisplayed,setHeaderDisplayed] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [draftUsername, setDraftUsername] = useState("");
+  const [draftTeam, setDraftTeam] = useState("");
   const [file, setFile] = useState();
   const [draftRole, setDraftRole] = useState("");
   const [draftPass, setDraftPass] = useState(props.Pass || "");
@@ -14,7 +16,7 @@ function UserCard(props) {
     props.setUsers((prev) =>
       prev.map(function (user) {
         if (user._id === props.id) {
-          return { ...user, Username: draftUsername, Role: draftRole, Pass: draftPass };
+          return { ...user, Username: draftUsername, Role: draftRole, Team: draftTeam, Pass: draftPass };
         }
         return user;
       })
@@ -26,6 +28,7 @@ function UserCard(props) {
     data.append("_id", props.id);
     data.append("Username", draftUsername);
     data.append("Role", draftRole);
+    data.append("Team", draftTeam);
     data.append("Pass", draftPass);
     const newPhoto = await Axios.post("/update-user", data, { headers: { "Content-Type": "multipart/form-data" } });
     if (newPhoto.data) {
@@ -57,8 +60,12 @@ function UserCard(props) {
                 </div>
               </div>
               <div className="form-group">
+                <label>Team:</label>
+                <input className="form-control" onChange={(e) => setDraftTeam(e.target.value)} type="text" value={draftTeam} />
+              </div>
+              <div className="form-group">
                 <label>Password:</label>
-                <input className="form-control" onChange={(e) => setDraftPass(e.target.value)} type="text" value={draftPass} />
+                <input className="form-control" onChange={(e) => setDraftPass(e.target.value)} type="password" value={draftPass} />
               </div>
               <div className="form-group">
                 <button type="submit" className="btn btn-primary">Save</button>{" "}
@@ -71,24 +78,45 @@ function UserCard(props) {
     );
   };
 
+  const TableHeader = () => {
+    return (
+      <thead>
+        <tr>
+          <td>Img</td>
+          <td>Role</td>
+          <td>Team</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+    );
+  };
+
+
   return (
-    <table className="card">
+    <table className="board" width={"100%"}>
+       <TableHeader />
       <tbody>
         <tr>
-          <td colSpan="2">
+          <td className="people">
             <img src={props.photo ? `/upload-img/${props.photo}` : "/no-image.jpg"} className="card-img-top" alt={`${props.Role} named ${props.Username}`} />
+              <div className="people-de">
+              <h5>{props.Username}</h5>
+              </div>
           </td>
-          <td>Username:</td>
-          <td>{props.Username}</td>
-          <td>Role:</td>
-          <td>{props.Role}</td>
+          <td className="Role">
+            <p>{props.Role}</p>
+          </td>
+          <td className="peple-team">
+            <p>{props.Team}</p>
+          </td>
           {!props.readOnly && (
-            <td colSpan="2">
+            <td className="Action">
               <button
                 onClick={() => {
                   setIsEditing(true);
                   setDraftUsername(props.Username);
                   setDraftRole(props.Role);
+                  setDraftTeam(props.Team);
                   setDraftPass(props.Pass || "");
                   setFile("");
                 }}
@@ -97,7 +125,7 @@ function UserCard(props) {
               </button>{" "}
               <button
                 onClick={async () => {
-                  const test = Axios.delete(`/user/${props.id}`);
+                  const test = await Axios.delete(`/user/${props.id}`); // ใส่ await เพื่อรอให้การลบเสร็จสิ้น
                   props.setUsers((prev) => {
                     return prev.filter((user) => {
                       return user._id !== props.id;

@@ -125,12 +125,14 @@ app.post("/create-user", upload.single("photo"), clean, async (req, res) => {
 function clean(req,res,next) {
     if (typeof req.body.Username != "string") req.body.Username = ""
     if (typeof req.body.Role != "string") req.body.Role = ""
+    if (typeof req.body.Team != "string") req.body.Team = ""
     if (typeof req.body.Pass != "string") req.body.Pass = ""
     if (typeof req.body._id != "string") req.body._id = ""
 
     req.cleanData = {
         Username: sanitizeHtml(req.body.Username.trim(), {allowedTags:[] , allowedAttributes: {}}),
         Pass: sanitizeHtml(req.body.Pass.trim(), {allowedTags:[] , allowedAttributes: {}}),
+        Team: sanitizeHtml(req.body.Team.trim(), {allowedTags:[] , allowedAttributes: {}}),
         Role: sanitizeHtml(req.body.Role.trim(), {allowedTags:[] , allowedAttributes: {}})
     }
     next()

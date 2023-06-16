@@ -14,7 +14,7 @@ function Navbar() {
             </div>
             <div>
             <img src="/no-image.jpg" />
-            <a><FontAwesomeIcon icon={faRightFromBracket} /></a>
+            <a href="/"><FontAwesomeIcon icon={faRightFromBracket} /></a>
             </div>
           </div>
         </div>
