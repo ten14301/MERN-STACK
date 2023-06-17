@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass,faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import Search from "./Search";
 
 function Navbar() {
   
@@ -9,13 +10,7 @@ function Navbar() {
       <div className="navigation">
         <div className="n1">
           <div className="profile">
-            <div className="s">
-             <i className="manify"> <FontAwesomeIcon icon={faMagnifyingGlass} /></i>
-             <input
-                  type="text"
-                  placeholder="Search users"
-                />
-            </div>
+            <Search />
             <div>
             <img src="/no-image.jpg" />
             <a href="/"><FontAwesomeIcon icon={faRightFromBracket} /></a>
