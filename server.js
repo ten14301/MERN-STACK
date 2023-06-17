@@ -97,9 +97,19 @@ app.post("/update-user", upload.single("photo"), clean, async (req, res) => {
 })
 
 app.get("/api/users", async (req, res) => {
-  allusers = await db.collection("User").find().toArray();
-  res.json(allusers)
+  const key = req.query.key || ""; 
+  const limit = parseInt(req.query.limit) || 5;
+
+  const filter = { Username: { $regex: key, $options: "i" } };
+
+  const searchResult = await db.collection("User")
+    .find(filter)
+    .limit(limit)
+    .toArray();
+
+  res.json(searchResult);
 });
+
 
 app.post("/create-user", upload.single("photo"), clean, async (req, res) => {
 
