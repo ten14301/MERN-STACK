@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass,faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
+  
   return (
     <div className="interface">
       <div className="navigation">
@@ -10,7 +11,10 @@ function Navbar() {
           <div className="profile">
             <div className="s">
              <i className="manify"> <FontAwesomeIcon icon={faMagnifyingGlass} /></i>
-              <input type="text" placeholder="...search"/>
+             <input
+                  type="text"
+                  placeholder="Search users"
+                />
             </div>
             <div>
             <img src="/no-image.jpg" />

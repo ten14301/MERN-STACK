@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Axios from "axios";
 
 function UserCard(props) {
-  const [headerDisplayed,setHeaderDisplayed] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [draftUsername, setDraftUsername] = useState("");
   const [draftTeam, setDraftTeam] = useState("");
@@ -68,8 +67,8 @@ function UserCard(props) {
                 <input className="form-control" onChange={(e) => setDraftPass(e.target.value)} type="password" value={draftPass} />
               </div>
               <div className="form-group">
-                <button type="submit" className="btn btn-primary">Save</button>{" "}
-                <button className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
+                <button type="submit" >Save</button>{" "}
+                <button  onClick={() => setIsEditing(false)}>Cancel</button>
               </div>
             </form>
           </div>
@@ -78,9 +77,10 @@ function UserCard(props) {
     );
   };
 
-  const TableHeader = () => {
-    return (
-      <thead>
+
+  return (
+    <table className="board" width={"100%"}>
+             <thead>
         <tr>
           <td>Img</td>
           <td>Role</td>
@@ -88,13 +88,6 @@ function UserCard(props) {
           <td>Action</td>
         </tr>
       </thead>
-    );
-  };
-
-
-  return (
-    <table className="board" width={"100%"}>
-       <TableHeader />
       <tbody>
         <tr>
           <td className="people">
@@ -110,8 +103,8 @@ function UserCard(props) {
             <p>{props.Team}</p>
           </td>
           {!props.readOnly && (
-            <td className="Action">
-              <button
+            <td className="action">
+              <button className="edit"
                 onClick={() => {
                   setIsEditing(true);
                   setDraftUsername(props.Username);
@@ -123,9 +116,9 @@ function UserCard(props) {
               >
                 Edit
               </button>{" "}
-              <button
+              <button className="delete"
                 onClick={async () => {
-                  const test = await Axios.delete(`/user/${props.id}`); // ใส่ await เพื่อรอให้การลบเสร็จสิ้น
+                  const test = await Axios.delete(`/user/${props.id}`);
                   props.setUsers((prev) => {
                     return prev.filter((user) => {
                       return user._id !== props.id;

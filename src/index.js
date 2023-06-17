@@ -7,7 +7,7 @@ import Popup from "./component/Popup";
 import Button from "./component/ฺButton";
 import Slidebar from "./component/Slidebar.js";
 import Navbar from "./component/Navbar";
-import { faUser, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faUsers,faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function App() {
@@ -24,15 +24,14 @@ function App() {
     try {
       const response = await Axios.get("/api/users");
       setUsers(response.data);
-      setUserCount(response.data.length); // Set user count
-      setTeamCount(getTeamCount(response.data)); // Set team count
+      setUserCount(response.data.length);
+      setTeamCount(getTeamCount(response.data));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   const getTeamCount = (data) => {
-    // Count unique teams from the data array
     const teams = new Set(data.map((user) => user.Team));
     return teams.size;
   };
@@ -52,7 +51,7 @@ function App() {
               <FontAwesomeIcon icon={faUser} />
             </i>
             <div>
-              <h3>{userCount}</h3> {/* Display user count */}
+              <h3>{userCount}</h3>
               <span>Users</span>
             </div>
           </div>
@@ -61,13 +60,13 @@ function App() {
               <FontAwesomeIcon icon={faUsers} />
             </i>
             <div>
-              <h3>{teamCount}</h3> {/* Display team count */}
+              <h3>{teamCount}</h3>
               <span>Team</span>
             </div>
           </div>
         </div>
         <Button className="btn" onClick={() => setButtonPopup(true)}>
-          + ADD NEW USER
+          <FontAwesomeIcon icon={faPlus} /> Add New User
         </Button>
         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
           <CreateNewForm setUsers={setUsers} />

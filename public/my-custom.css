@@ -105,13 +105,14 @@ a{
 
 
 .add-btn{
+  height: 40px;
   width: 15%;
   border: 1px solid grey;
   border-radius: 20px;
 }
 
 .add-btn:hover{
-  background-color: #1F6E8C;
+  background-color: #656f72;
 }
 .interface{
   background-color: #fff;
@@ -171,17 +172,31 @@ a{
 }
 .toppic{
   color: #444a53;
-  padding: 0px 0px 0 30px;
+  padding: 30px 30px 0 30px;
   font-size: 24px;
   font-weight: 700;
+  margin-left: 300px;
 }
 
 
-.btn{
+.btn {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 50px;
+  padding: 20px 0 0;
 }
+
+@media (max-width: 768px) {
+  .btn {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    justify-content: flex-start;
+  }
+}
+
 
 .values{
   padding: 30px 30px 0 30px;
@@ -231,11 +246,11 @@ a{
 
 .board{
   width: 90%;
-  margin: 30px 0 30px 30px;
+  margin: 30px 0 30px 20px;
   overflow: auto;
   background-color: #fff;
   border-radius: 8px;
-  margin-left: 320px;
+  margin-left: 330px;
 }
 
 .board img{
@@ -287,7 +302,7 @@ tbody tr td{
 }
 
 
-.Action button{
+.edit{
   background-color: #4caf50;
   color: white;
   padding: 10px 20px;
@@ -296,8 +311,21 @@ tbody tr td{
   border-radius: 4px;
 }
 
-.Action button:hover {
+.edit:hover {
   background-color: #45a049;
+}
+
+.delete{
+  background-color: crimson;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete:hover{
+  background-color: rgb(220, 4, 47);
 }
 
 

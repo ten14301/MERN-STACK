@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartPie,faUsers,faUser,faBell } from "@fortawesome/free-solid-svg-icons";
+import { faChartPie,faListCheck,faUser,faBell } from "@fortawesome/free-solid-svg-icons";
 
 function Slidebar() {
 
@@ -27,7 +27,7 @@ function Slidebar() {
             </li >
             <li className={activeMenu === 2 ? "active" : ""}
             onClick={() => handleMenuClick(2)} >
-            <FontAwesomeIcon icon={faUsers}  className="icon" /> <a href="#">Team</a>
+            <FontAwesomeIcon icon={faListCheck}  className="icon" /><a href="#">Task</a>
             </li>
             <li className={activeMenu === 3 ? "active" : ""}
             onClick={() => handleMenuClick(3)} >

@@ -97,7 +97,17 @@ app.post("/update-user", upload.single("photo"), clean, async (req, res) => {
 })
 
 app.get("/api/users", async (req, res) => {
-  const allusers = await db.collection('User').find().toArray();
+  const searchQuery = req.query.q; 
+
+  let allusers;
+  if (searchQuery) {
+    allusers = await db
+      .collection("User")
+      .find({ $text: { $search: searchQuery } })
+      .toArray();
+  } else {
+    allusers = await db.collection("User").find().toArray();
+  }
   res.json(allusers)
 });
 
