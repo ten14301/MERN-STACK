@@ -40,11 +40,11 @@ export default function Search() {
         />
       </div>
       {searchResult && searchResult.length > 0 && (
-        <div className="search-result">
-          {searchResult.map((user) => (
-            <div className="result-item" key={user._id}>
-              <div className="user-info">
-                <p className="name">{user.Username}</p>
+          <div className="search-result">
+            {searchResult.map((user) => (
+              <div className="result-item" key={user._id}>
+                <div className="user-info">
+                  <p className="name">{user.Username}</p>
               </div>
             </div>
           ))}

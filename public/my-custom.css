@@ -328,6 +328,33 @@ tbody tr td{
   background-color: rgb(220, 4, 47);
 }
 
+.search-result {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  position: absolute;
+  z-index: 999;
+}
+
+.result-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.user-info {
+  margin-left: 10px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+
 
   
 
